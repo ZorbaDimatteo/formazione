@@ -1,8 +1,4 @@
 module.exports = function makeImportant(string, exclamNum = string.length){
-    let exclam = '!';
-    exclam = exclam.repeat(exclamNum)
-    string = string + exclam;
-    console.log(string);
+    const exclam = '!'; 
+    return string + exclam.repeat(exclamNum);
 }
-
-// non capisco
