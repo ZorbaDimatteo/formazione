@@ -1,18 +1,17 @@
-function alwaysThrows() {
-    throw new Error('\"OH NOES\"');
+function alwaysThrows(error) {
+    console.log(error.message);
 }
 
 function iterate(num) {
     console.log(num);
-    return num++;
+    return num + 1;
 }
 
-Promise.resolve(iterate(i))
-.then(function (i) {
-    let i = 1;
-    while (i < 10){
-        iterate(i);
+Promise.resolve(iterate(1)).then(function (result) {
+    while (result < 10){
+        result = iterate(result);
     }
-}).catch(function(i) {
-    if (i === 5) console.log(alwaysThrows());
+}).then(null, function (result) {
+    if (result === 6)
+        alwaysThrows(new Error('OH NOES'));
 });
