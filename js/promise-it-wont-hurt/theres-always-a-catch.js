@@ -1,5 +1,5 @@
 function alwaysThrows(error) {
-    console.log(error.message);
+    throw new Error('OH NOES')
 }
 
 function iterate(num) {
@@ -7,11 +7,15 @@ function iterate(num) {
     return num + 1;
 }
 
-Promise.resolve(iterate(1)).then(function (result) {
-    while (result < 10){
-        result = iterate(result);
-    }
-}).then(null, function (result) {
-    if (result === 6)
-        alwaysThrows(new Error('OH NOES'));
-});
+Promise.resolve(iterate(1))
+    .then(iterate)
+    .then(iterate)
+    .then(iterate)
+    .then(iterate)
+    .then(alwaysThrows) // si blocca qui con l'errore
+    .then(iterate)
+    .then(iterate)
+    .then(iterate)
+    .then(iterate)
+    .then(iterate)
+    .catch((error) => console.log(error.message))
